@@ -1,0 +1,15 @@
+body {
+    padding-bottom: 30px;
+}
+
+input.search{
+    width: 50em;
+}
+
+.theme-showcase > p > .btn {
+    margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+    width: auto;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="jlorenc"/>
+
+    <title>Wyszukiwanie w polskiej wikipedii</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel='stylesheet' href='webjars/bootstrap/3.3.7-1/css/bootstrap.min.css'/>
+    <!-- Bootstrap theme -->
+    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="css/theme.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="container theme-showcase" role="main">
+
+    <div class="page-header">
+        <h1>Wyszukiwarka</h1>
+    </div>
+    <form method="get">
+    <p>
+        <input class="search" type="text" name="query" th:value="${query}"/>
+        <button type="submit" class="btn btn-primary">Szukaj</button>
+    </p>
+    <p th:unless="${searchEngines.empty}">
+        <div class="radio" th:each="searchEngine : ${searchEngines}">
+            <label>
+                <input  type="radio" th:value="${searchEngine.Key}" name="engine" th:checked="${engine == searchEngine.key}"/>
+                <span th:text="${searchEngine.name}"></span>
+            </label>
+        </div>
+    </p>
+    </form>
+    <div th:if="${results}">
+        <div class="page-header">
+            <h1>Wyniki wyszukiwania</h1>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr th:if="${results.empty}">
+                        <td>Brak wyników</td>
+                    </tr>
+                    <tr th:each="result : ${results}" th:object="${result}">
+                        <td th:text="*{name}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script src="js/docs.min.js"></script>
+</body>
+</html>
