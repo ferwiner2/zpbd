@@ -1,17 +1,16 @@
 package pl.pw.edu.elka.zpbd.wikiReader.documentCreator;
 
-public class DocumentPrinter implements DocumentCreator {
+import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
 
-    Parser parser;
+public class DocumentPrinter extends DocumentCreator {
 
     public DocumentPrinter() {
-        parser = new Parser();
+        super();
     }
 
     @Override
-    public void generateAndInsertDocument(String page) {
-        parser.loadPage(page);
-        System.out.println("Id: " + parser.getId() + " Title: " + parser.getTitle());
-        System.out.println(parser.getText());
+    public void insertDocument(WikiPage page) {
+        System.out.println("Id: " + page.getId() + " Title: " + page.getTitle());
+        System.out.println(page.getText());
     }
 }

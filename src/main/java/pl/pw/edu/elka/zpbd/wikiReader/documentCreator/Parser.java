@@ -1,25 +1,27 @@
 package pl.pw.edu.elka.zpbd.wikiReader.documentCreator;
 
-public class Parser {
+import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
+
+class Parser {
 
     private String[] lines;
 
-    public void loadPage(String pathXml) {
+    void loadPage(String pathXml) {
         lines = pathXml.split("\n");
     }
 
-    public String getTitle() {
+    private String getTitle() {
         String string = lines[1];
         return string.substring(11, string.length() - 8);
     }
 
-    public int getId() {
+    private int getId() {
         String string = lines[3];
         String result = string.substring(8, string.length() - 5);
         return Integer.parseInt(result);
     }
 
-    public String getText() {
+    private String getText() {
         StringBuilder buffor = new StringBuilder();
         boolean text = false;
         for (String str : lines) {
@@ -38,6 +40,10 @@ public class Parser {
 
         }
         return buffor.toString();
+    }
+
+    WikiPage getWikiPage(){
+        return new WikiPage(getId(), getTitle(), getText());
     }
 
 }

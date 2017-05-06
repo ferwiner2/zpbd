@@ -7,6 +7,8 @@ public class Config {
     private static String plXml = "E:\\wiki\\plwiki.xml";
 
     private static int logResulotion = 5000;
+    private static String mongoDB = "zpbd";
+    private static String mongoCollection = "wiki_page";
 
     public static String getJvXml() {
         return jvXml;
@@ -22,5 +24,13 @@ public class Config {
 
     public static int getLogResulotion() {
         return logResulotion;
+    }
+
+    public static String getMongoDB() {
+        return mongoDB;
+    }
+
+    public static String getMongoCollection() {
+        return mongoCollection;
     }
 }
