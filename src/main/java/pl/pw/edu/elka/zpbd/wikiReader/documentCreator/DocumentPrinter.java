@@ -12,6 +12,6 @@ public class DocumentPrinter implements DocumentCreator {
     public void generateAndInsertDocument(String page) {
         parser.loadPage(page);
         System.out.println("Id: " + parser.getId() + " Title: " + parser.getTitle());
-        System.out.println();
+        System.out.println(parser.getText());
     }
 }

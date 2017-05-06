@@ -10,9 +10,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         DocumentCreator dp = new DocumentPrinter();
-        Runner p = new Runner(dp, FileReader.Mode.PL);
+        Runner p = new Runner(dp, FileReader.Mode.JV);
 
-        p.runLoop(100000);
+        p.runLoop(20);
 
     }
 }

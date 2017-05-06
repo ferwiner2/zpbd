@@ -23,13 +23,19 @@ public class Parser {
         StringBuilder buffor = new StringBuilder();
         boolean text = false;
         for (String str : lines) {
-            if (str.contains("<text"))
+            if (str.contains("<text")) {
                 text = true;
-            if (text) {
-                buffor.append(str);
+                str = str.replace("<text xml:space=\"preserve\">", "");
             }
-            if (str.contains("</text>"))
+            if (str.contains("</text>")) {
                 text = false;
+                str = str.replace("</text>", "");
+                buffor.append(str).append("\n");
+            }
+            else if (text) {
+                buffor.append(str).append("\n");
+            }
+
         }
         return buffor.toString();
     }
