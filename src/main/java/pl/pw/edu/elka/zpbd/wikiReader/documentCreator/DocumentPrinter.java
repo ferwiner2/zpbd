@@ -13,4 +13,14 @@ public class DocumentPrinter extends DocumentCreator {
         System.out.println("Id: " + page.getId() + " Title: " + page.getTitle());
         System.out.println(page.getText());
     }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void close() {
+
+    }
 }

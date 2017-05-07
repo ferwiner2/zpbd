@@ -5,12 +5,13 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.CreateCollectionOptions;
 import org.bson.Document;
-import org.bson.UuidRepresentation;
-import org.bson.codecs.UuidCodec;
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import org.slf4j.LoggerFactory;
 import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
 import pl.pw.edu.elka.zpbd.wikiReader.config.Config;
+
 
 public class MongoDocCreator extends DocumentCreator {
     private MongoDatabase database;
@@ -23,22 +24,6 @@ public class MongoDocCreator extends DocumentCreator {
         MongoClient mongo = new MongoClient();
 
         this.database = mongo.getDatabase(Config.getMongoDB());
-
-        createCollection();
-    }
-
-    private void createCollection() {
-        MongoCollection collection = this.database.getCollection(Config.getMongoCollection());
-        collection.drop();
-        this.database.createCollection(Config.getMongoCollection(), new CreateCollectionOptions().autoIndex(true));
-        this.collection = this.database.getCollection(Config.getMongoCollection());
-        registerCodecClass();
-    }
-
-    private void registerCodecClass() {
-        CodecRegistry codecRegistry = CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(new UuidCodec(UuidRepresentation.STANDARD)),
-                MongoClient.getDefaultCodecRegistry());
-
     }
 
     @Override
@@ -46,5 +31,30 @@ public class MongoDocCreator extends DocumentCreator {
         Document doc = new Document();
         doc.putAll(page.toMap());
         this.collection.insertOne(doc);
+    }
+
+    @Override
+    public void init() {
+        createCollection();
+        turnOffDebug();
+        timer.start();
+    }
+
+    @Override
+    public void close() {
+        timer.stop();
+    }
+
+    private void turnOffDebug() {
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        Logger rootLogger = loggerContext.getLogger("org.mongodb.driver");
+        rootLogger.setLevel(Level.OFF);
+    }
+
+    private void createCollection() {
+        MongoCollection collection = this.database.getCollection(Config.getMongoCollection());
+        collection.drop();
+        this.database.createCollection(Config.getMongoCollection(), new CreateCollectionOptions().autoIndex(true));
+        this.collection = this.database.getCollection(Config.getMongoCollection());
     }
 }

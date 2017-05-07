@@ -22,14 +22,14 @@ public class Runner {
             while (limit < 0 || (limit > 0 && limit > i)) {
                 if (++i % Config.getLogResulotion() == 0) {
                     double pagesPerSecond = (i * 1000.0) / (System.currentTimeMillis() - start);
-                    System.out.printf(i + " pages parsed. %.2f p per sec \n", pagesPerSecond);
+                    System.out.printf(i + " pages  %.2f p per sec \n", pagesPerSecond);
                 }
                 String page = freader.getNextPage();
                 documentCreator.generateAndInsertDocument(page);
             }
         } catch (EndOfFileException ignored) {
         }
-        System.out.println(i + " pages parsed");
+        System.out.println(i + " pages");
         freader.close();
     }
 
