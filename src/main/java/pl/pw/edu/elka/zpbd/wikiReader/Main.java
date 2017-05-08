@@ -1,5 +1,6 @@
 package pl.pw.edu.elka.zpbd.wikiReader;
 
+import pl.pw.edu.elka.zpbd.wikiReader.documentCreator.CassandraDocCreator;
 import pl.pw.edu.elka.zpbd.wikiReader.documentCreator.DocumentCreator;
 import pl.pw.edu.elka.zpbd.wikiReader.documentCreator.MongoDocCreator;
 import pl.pw.edu.elka.zpbd.wikiReader.freader.FileReader;
@@ -9,7 +10,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        DocumentCreator dp = new MongoDocCreator();
+        DocumentCreator dp = new CassandraDocCreator();
 
         dp.init();
         Runner p = new Runner(dp, FileReader.Mode.PL);

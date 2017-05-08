@@ -1,11 +1,26 @@
 package pl.pw.edu.elka.zpbd.wikiReader;
 
+import com.datastax.driver.mapping.annotations.Column;
+import com.datastax.driver.mapping.annotations.PartitionKey;
+import com.datastax.driver.mapping.annotations.Table;
+
 import java.util.HashMap;
 
+//mapowanie dla cassandrowego orm'a
+@Table(keyspace = "wiki_pages", name = "pl",
+        readConsistency = "QUORUM",
+        writeConsistency = "QUORUM",
+        caseSensitiveKeyspace = false,
+        caseSensitiveTable = false)
 public class WikiPage {
+    @PartitionKey
     private int id;
     private String title;
+    @Column(name = "content")
     private String text;
+
+    //wymagane przez cassandowy orm
+    public  WikiPage(){}
 
     public WikiPage(int id, String title, String text) {
         this.id = id;
