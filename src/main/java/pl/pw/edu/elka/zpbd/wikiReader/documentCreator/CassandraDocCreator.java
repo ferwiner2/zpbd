@@ -22,6 +22,14 @@ public class CassandraDocCreator extends DocumentCreator {
         mapper.save(page);
     }
 
+    public WikiPage selectDocument(int id){
+        return mapper.get(id);
+    }
+
+    public void deleteDocument(int id){
+        mapper.delete(id);
+    }
+
     @Override
     public void init() {
         manager = new MappingManager(cassandraDb.getSession());
