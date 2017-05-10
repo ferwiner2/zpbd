@@ -4,7 +4,7 @@ public class Config {
 
     private static String jvXml = "E:\\wiki\\jvwiki.xml";
     private static String enXml = "E:\\wiki\\enwiki.xml";
-    private static String plXml = "/home/ferwiner2/Pobrane/plwiki-20170420-pages-articles-multistream.xml/data.xml";
+    private static String plXml = "E:\\wiki\\plwiki.xml";
 
     private static int logResulotion = 5000;
     private static String mongoDB = "zpbd";

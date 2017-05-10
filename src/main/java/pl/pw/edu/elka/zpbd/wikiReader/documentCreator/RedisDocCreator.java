@@ -3,6 +3,7 @@ package pl.pw.edu.elka.zpbd.wikiReader.documentCreator;
 import com.google.common.collect.ImmutableMap;
 import io.redisearch.Schema;
 import io.redisearch.client.Client;
+import pl.pw.edu.elka.zpbd.databases.redis.RedisIterator;
 import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisDataException;
@@ -22,7 +23,7 @@ public class RedisDocCreator extends DocumentCreator {
                 .put("text", page.getText())
                 .build();
         try {
-            client.addDocument(Integer.toString(page.getId()), document);
+            RedisIterator.iterativeSearch(() -> client.addDocument(Integer.toString(page.getId()), document));
         }
         catch(JedisConnectionException e){
             System.err.println("zapis strony " + page.getId() + " nie powiódł się");
