@@ -11,6 +11,7 @@ import pl.pw.edu.elka.zpbd.databases.SearchEngines;
 /**
  * Created by Jakub Lorenc on 08.04.17.
  */
+//TODO dodać wyświetlanie stron
 @Controller
 public class SearchController {
     private final SearchEngines searchEngines;
@@ -26,7 +27,7 @@ public class SearchController {
             @RequestParam(value="engine", required = false, defaultValue = "") String engineParam,
             Model model) {
         final SearchEngineInterface engine = searchEngines.getEngine(engineParam);
-        if(engine != null){
+        if (engine != null) {
             model.addAttribute("results", engine.search(queryParam));
         }
 

@@ -2,7 +2,6 @@ package pl.pw.edu.elka.zpbd.databases.dummy;
 
 import org.springframework.stereotype.Component;
 import pl.pw.edu.elka.zpbd.databases.SearchEngineInterface;
-import pl.pw.edu.elka.zpbd.databases.SearchEngines;
 import pl.pw.edu.elka.zpbd.databases.SearchResult;
 
 import java.util.Arrays;
@@ -16,8 +15,8 @@ public class DummySearchEngine implements SearchEngineInterface {
     @Override
     public List<SearchResult> search(String query) {
         return Arrays.asList(
-                new SearchResult("AAAA"),
-                new SearchResult("bbbb")
+                new SearchResult("1","AAAA", "the A page"),
+                new SearchResult("2","bbbb", "the B page")
         );
     }
 
