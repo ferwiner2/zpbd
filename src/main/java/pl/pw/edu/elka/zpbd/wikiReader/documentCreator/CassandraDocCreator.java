@@ -10,30 +10,17 @@ import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
  */
 public class CassandraDocCreator extends DocumentCreator {
     private CassandraDbHandler cassandraDb;
-    private MappingManager manager;
-    private Mapper<WikiPage> mapper;
 
-    public CassandraDocCreator() {
-        cassandraDb = new CassandraDbHandler();
-    }
 
     @Override
     public void insertDocument(WikiPage page) {
-        mapper.save(page);
+        cassandraDb.getMapper().save(page);
     }
 
-    public WikiPage selectDocument(int id){
-        return mapper.get(id);
-    }
-
-    public void deleteDocument(int id){
-        mapper.delete(id);
-    }
 
     @Override
     public void init() {
-        manager = new MappingManager(cassandraDb.getSession());
-        mapper = manager.mapper(WikiPage.class);
+        cassandraDb = new CassandraDbHandler();
         timer.start();
     }
 

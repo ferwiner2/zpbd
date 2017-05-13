@@ -4,6 +4,9 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.mapping.Mapper;
+import com.datastax.driver.mapping.MappingManager;
+import pl.pw.edu.elka.zpbd.wikiReader.WikiPage;
 
 /**
  * Created by rkluz on 07.05.2017.
@@ -15,11 +18,25 @@ public class CassandraDbHandler {
     private Cluster cluster;
 
     private Session session;
+    private MappingManager manager;
+
+    public MappingManager getManager() {
+        return manager;
+    }
+
+    public Mapper<WikiPage> getMapper() {
+        return mapper;
+    }
+
+    private Mapper<WikiPage> mapper;
 
 
     public CassandraDbHandler() {
         this.connect(CONTACT_POINTS, PORT);
         this.createSchema(session);
+        this.manager = new MappingManager(session);
+        this.mapper = this.manager.mapper(WikiPage.class);
+
     }
 
     private void connect(String[] contactPoints, int port) {
