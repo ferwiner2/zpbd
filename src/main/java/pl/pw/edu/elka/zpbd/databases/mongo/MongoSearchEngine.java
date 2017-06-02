@@ -6,13 +6,16 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.springframework.stereotype.Component;
 import pl.pw.edu.elka.zpbd.databases.SearchEngineInterface;
 import pl.pw.edu.elka.zpbd.databases.SearchResult;
 import pl.pw.edu.elka.zpbd.wikiReader.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
+@Component
 public class MongoSearchEngine implements SearchEngineInterface {
     private MongoCollection<Document> collection;
 
@@ -25,9 +28,8 @@ public class MongoSearchEngine implements SearchEngineInterface {
     @Override
     public List<SearchResult> search(String query) {
         BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("title", query);
-        FindIterable<Document> docs = collection.find(whereQuery);
-
+        whereQuery.put("title", Pattern.compile(query, Pattern.CASE_INSENSITIVE));
+        FindIterable<Document> docs = collection.find(whereQuery).limit(10);
         List<SearchResult> sr = new ArrayList<>();
 
         for (Document doc : docs) {
