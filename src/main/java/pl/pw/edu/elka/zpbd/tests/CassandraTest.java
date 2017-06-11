@@ -37,46 +37,4 @@ public class CassandraTest extends DatabaseTest {
     public void close() {
         db.close();
     }
-
-    @Override
-    public void runTimeTests() {
-        DatabaseTest ct = new CassandraTest();
-        ct.init();
-        RandomGenerator r = new RandomGenerator();
-        Integer rowsNumber = r.getRandom();
-
-        long startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < rowsNumber; ++i) {
-            ct.select(i);
-        }
-
-        long endTime = System.currentTimeMillis();
-
-        Long operationTime = endTime - startTime;
-
-        System.out.println("select " + rowsNumber.toString() + " " + operationTime.toString());
-        startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < rowsNumber; ++i) {
-            ct.update(i);
-        }
-
-        endTime = System.currentTimeMillis();
-        operationTime = endTime - startTime;
-
-        System.out.println("update " + rowsNumber.toString() + " " + operationTime.toString());
-        startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < rowsNumber; ++i) {
-            ct.delete(i);
-        }
-
-        endTime = System.currentTimeMillis();
-        operationTime = endTime - startTime;
-        System.out.println("delete " + rowsNumber.toString() + " " + operationTime.toString());
-
-        ct.close();
-    }
-
 }

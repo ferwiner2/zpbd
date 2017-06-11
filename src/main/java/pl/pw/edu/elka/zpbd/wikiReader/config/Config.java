@@ -10,6 +10,9 @@ public class Config {
     private static String mongoDB = "zpbd";
     private static String mongoCollection = "wiki_page";
 
+    private static int checkSet = 1000;
+
+
     public static String getJvXml() {
         return jvXml;
     }
@@ -32,5 +35,9 @@ public class Config {
 
     public static String getMongoCollection() {
         return mongoCollection;
+    }
+
+    public static int getCheckSet() {
+        return checkSet;
     }
 }

@@ -1,8 +1,7 @@
 package pl.pw.edu.elka.zpbd.wikiReader;
 
-import pl.pw.edu.elka.zpbd.tests.CassandraTest;
 import pl.pw.edu.elka.zpbd.tests.DatabaseTest;
-import pl.pw.edu.elka.zpbd.tests.RandomGenerator;
+import pl.pw.edu.elka.zpbd.tests.MongoTest;
 import pl.pw.edu.elka.zpbd.wikiReader.documentCreator.DocumentCreator;
 import pl.pw.edu.elka.zpbd.wikiReader.documentCreator.MongoDocCreator;
 import pl.pw.edu.elka.zpbd.wikiReader.freader.FileReader;
@@ -15,10 +14,17 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        mongo();
+        mongoInit();
     }
 
-    private static void mongo() throws IOException {
+    private static void mongoTimeTest(){
+        DatabaseTest mongoTimeTest = new MongoTest();
+        mongoTimeTest.init();
+        mongoTimeTest.runTimeTests();
+        mongoTimeTest.close();
+    }
+
+    private static void mongoInit() throws IOException {
         DocumentCreator dp = new MongoDocCreator();
 
         dp.init();
@@ -27,7 +33,6 @@ public class Main {
         p.runLoop();
 
         dp.close();
-        dp.timer.showTime();
     }
 
 }

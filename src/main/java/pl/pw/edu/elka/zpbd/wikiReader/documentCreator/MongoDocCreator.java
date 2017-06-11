@@ -1,9 +1,10 @@
 package pl.pw.edu.elka.zpbd.wikiReader.documentCreator;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.CreateCollectionOptions;
+import com.mongodb.client.model.IndexOptions;
 import org.bson.Document;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -43,6 +44,10 @@ public class MongoDocCreator extends DocumentCreator {
     @Override
     public void close() {
         timer.stop();
+        timer.showTime();
+        long startTime = System.currentTimeMillis();
+        createIndexes();
+        System.out.println("Indexing time: " + (System.currentTimeMillis() - startTime) + " ms.");
     }
 
     private void turnOffDebug() {
@@ -54,7 +59,19 @@ public class MongoDocCreator extends DocumentCreator {
     private void createCollection() {
         MongoCollection collection = this.database.getCollection(Config.getMongoCollection());
         collection.drop();
-        this.database.createCollection(Config.getMongoCollection(), new CreateCollectionOptions().autoIndex(true));
+        this.database.createCollection(Config.getMongoCollection());
         this.collection = this.database.getCollection(Config.getMongoCollection());
+    }
+
+    private void createIndexes() {
+        this.collection.createIndex(new BasicDBObject("id", 1));
+
+//        BasicDBObject index = new BasicDBObject();
+//        index.put("title", "text");
+//        index.put("text", "text");
+//        BasicDBObject weights = new BasicDBObject("title", 10).append("text", 5);
+//        IndexOptions options = new IndexOptions();
+//        options.weights(weights);
+//        collection.createIndex(index, options);
     }
 }
