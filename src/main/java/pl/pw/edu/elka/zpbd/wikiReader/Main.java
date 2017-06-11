@@ -14,10 +14,11 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        mongoInit();
+//        mongoInit();
+        mongoTimeTest();
     }
 
-    private static void mongoTimeTest(){
+    private static void mongoTimeTest() throws InterruptedException {
         DatabaseTest mongoTimeTest = new MongoTest();
         mongoTimeTest.init();
         mongoTimeTest.runTimeTests();

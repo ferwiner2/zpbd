@@ -4,6 +4,8 @@ import pl.pw.edu.elka.zpbd.wikiReader.config.RandId;
 
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by rkluz on 11.06.2017.
  */
@@ -19,7 +21,7 @@ public abstract class DatabaseTest {
 
     public abstract void close();
 
-    public void runTimeTests(){
+    public void runTimeTests() throws InterruptedException {
         RandId ids = new RandId();
 
         long startTime = System.currentTimeMillis();
