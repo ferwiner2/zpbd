@@ -18,5 +18,7 @@ public abstract class DatabaseTest {
 
     public abstract void close();
 
+    public abstract void runTimeTests();
+
 
 }
