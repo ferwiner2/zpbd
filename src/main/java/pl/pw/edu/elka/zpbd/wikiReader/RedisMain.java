@@ -11,7 +11,7 @@ public class RedisMain {
         redisTimeTest();
     }
 
-    private static void redisTimeTest(){
+    private static void redisTimeTest() throws InterruptedException {
         DatabaseTest redisTimeTest = new RedisTest();
         redisTimeTest.init();
         redisTimeTest.runTimeTests();

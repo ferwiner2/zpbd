@@ -45,9 +45,9 @@ public class MongoDocCreator extends DocumentCreator {
     public void close() {
         timer.stop();
         timer.showTime();
-        long startTime = System.currentTimeMillis();
-        createIndexes();
-        System.out.println("Indexing time: " + (System.currentTimeMillis() - startTime) + " ms.");
+//        long startTime = System.currentTimeMillis();
+//        createIndexes();
+//        System.out.println("Indexing time: " + (System.currentTimeMillis() - startTime) + " ms.");
     }
 
     private void turnOffDebug() {
@@ -66,12 +66,12 @@ public class MongoDocCreator extends DocumentCreator {
     private void createIndexes() {
         this.collection.createIndex(new BasicDBObject("id", 1));
 
-//        BasicDBObject index = new BasicDBObject();
-//        index.put("title", "text");
-//        index.put("text", "text");
-//        BasicDBObject weights = new BasicDBObject("title", 10).append("text", 5);
-//        IndexOptions options = new IndexOptions();
-//        options.weights(weights);
-//        collection.createIndex(index, options);
+        BasicDBObject index = new BasicDBObject();
+        index.put("title", "text");
+        index.put("text", "text");
+        BasicDBObject weights = new BasicDBObject("title", 10).append("text", 5);
+        IndexOptions options = new IndexOptions();
+        options.weights(weights);
+        collection.createIndex(index, options);
     }
 }

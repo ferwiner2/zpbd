@@ -51,7 +51,7 @@ public class MySQLDocCreator extends DocumentCreator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        timer.start();
     }
 
     @Override

@@ -21,7 +21,7 @@ public abstract class DatabaseTest {
 
     public abstract void close();
 
-    public void runTimeTests() throws InterruptedException {
+    public void runTimeTests() {
         RandId ids = new RandId();
 
         long startTime = System.currentTimeMillis();
